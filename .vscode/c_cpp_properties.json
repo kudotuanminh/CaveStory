@@ -1,0 +1,31 @@
+{
+	"configurations": [
+		{
+			"name": "Win32",
+			"includePath": [
+				"${workspaceFolder}/**",
+				"C:/Program Files/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/ssp",
+				"D:/codeblocks-20.03-nosetup/SDL2-2.0.5-x86_64-w64-mingw32/include/SDL2",
+				"D:/codeblocks-20.03-nosetup/SDL2_image-2.0.5-x86_64-w64-mingw32/include/SDL2"
+			],
+			"defines": [
+				"_DEBUG",
+				"UNICODE",
+				"_UNICODE",
+				"__GNUC__",
+				"__GNUC__=7",
+				"__cdecl=__attribute__((__cdecl__))"
+			],
+			"compilerPath": "C:\\Program Files\\mingw-w64\\mingw64\\bin\\g++.exe",
+			"cStandard": "c17",
+			"cppStandard": "c++20",
+			"intelliSenseMode": "gcc-x64",
+			"browse": {
+				"path": ["${workspaceRoot}"],
+				"limitSymbolsToIncludedHeaders": true,
+				"databaseFilename": ""
+			}
+		}
+	],
+	"version": 4
+}
