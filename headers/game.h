@@ -2,6 +2,9 @@
 #define GAME_H
 
 #include <global.h>
+#include <graphics.h>
+#include <sprite.h>
+#include <input.h>
 
 class Graphics;
 
@@ -14,7 +17,9 @@ class Game
 private:
 	void gameLoop();
 	void draw(Graphics &graphics);
-	void update(double elapsedTime);
+	void update(float elapsedTime);
+
+	Sprite _player;
 
 public:
 	Game();

@@ -5,8 +5,8 @@
 			"includePath": [
 				"${workspaceFolder}/**",
 				"C:/Program Files/mingw-w64/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/ssp",
-				"D:/codeblocks-20.03-nosetup/SDL2-2.0.5-x86_64-w64-mingw32/include/SDL2",
-				"D:/codeblocks-20.03-nosetup/SDL2_image-2.0.5-x86_64-w64-mingw32/include/SDL2"
+				"${workspaceFolder}/.SDL2-2.0.14-x86_64-w64-mingw32/include/SDL2",
+				"${workspaceFolder}/.SDL2_image-2.0.5-x86_64-w64-mingw32/include/SDL2"
 			],
 			"defines": [
 				"_DEBUG",

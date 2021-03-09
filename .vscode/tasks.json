@@ -10,14 +10,15 @@
 				"src\\*.cpp",
 				"-o",
 				"build\\game.exe",
-				"-ID:/codeblocks-20.03-nosetup/SDL2-2.0.5-x86_64-w64-mingw32/include/SDL2",
-				"-LD:/codeblocks-20.03-nosetup/SDL2-2.0.5-x86_64-w64-mingw32/lib",
-				"-ID:/codeblocks-20.03-nosetup/SDL2_image-2.0.5-x86_64-w64-mingw32/include/SDL2",
-				"-LD:/codeblocks-20.03-nosetup/SDL2_image-2.0.5-x86_64-w64-mingw32/lib",
+				"-I${workspaceFolder}/.SDL2-2.0.14-x86_64-w64-mingw32/include/SDL2",
+				"-L${workspaceFolder}/.SDL2-2.0.14-x86_64-w64-mingw32/lib",
+				"-I${workspaceFolder}/.SDL2_image-2.0.5-x86_64-w64-mingw32/include/SDL2",
+				"-L${workspaceFolder}/.SDL2_image-2.0.5-x86_64-w64-mingw32/lib",
 				"-I${workspaceFolder}/headers",
 				"-lmingw32",
 				"-lSDL2main",
-				"-lSDL2"
+				"-lSDL2",
+				"-lSDL2_image"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
