@@ -8,7 +8,7 @@ My project for INT2215 6 class - Advanced Programming, lectured by [@chauttm](ht
 
 I use _VSCode_, compiled with _mingw-w64-gcc-8.1.0-x86_64-posix-seh_. Library used are:
 
-- SDL2-2.0.5-x86_64-w64-mingw32
+- SDL2-2.0.14-x86_64-w64-mingw32
 - SDL2_image-2.0.5-x86_64-w64-mingw32
 
 ## Credit

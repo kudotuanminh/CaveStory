@@ -4,21 +4,22 @@
 #include <global.h>
 #include <graphics.h>
 
-/*	Input class
- *	Holds information for individual sprites
- */
-
 class Sprite
 {
 private:
+	float _x, _y;
+
+protected:
 	SDL_Rect _sourceRect;
 	SDL_Texture *_spriteSheet;
 
-	float _x, _y;
-
 public:
 	Sprite();
-	Sprite(Graphics &graphics, const std::string &filePath, int sourceX, int sourceY, int width, int height, float posX, float posY);
+	Sprite(Graphics &graphics,
+		   const std::string &filePath,
+		   int sourceX, int sourceY,
+		   int width, int height,
+		   float posX, float posY);
 
 	virtual ~Sprite();
 	virtual void update();

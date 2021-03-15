@@ -1,9 +1,11 @@
 #include <sprite.h>
 
-Sprite::Sprite()
-{
-}
+/*	Sprite class
+ *	Holds information for individual sprites
+ */
 
+Sprite::Sprite() {}
+Sprite::~Sprite() {}
 Sprite::Sprite(Graphics &graphics, const std::string &filePath, int sourceX, int sourceY, int width, int height, float posX, float posY) : _x(posX), _y(posY)
 {
 	this->_sourceRect.x = sourceX;
@@ -14,12 +16,7 @@ Sprite::Sprite(Graphics &graphics, const std::string &filePath, int sourceX, int
 	//SDL_CreateTextureFromSurface(graphics.getRenderer(), graphics.loadImage(filePath));
 	this->_spriteSheet = SDL_CreateTextureFromSurface(graphics.getRenderer(), graphics.loadImage(filePath));
 	if (this->_spriteSheet == NULL)
-		std::cout << "\nError: Unable to load image\n"
-				  << IMG_GetError();
-}
-
-Sprite::~Sprite()
-{
+		std::cout << "\nError: Unable to load image\n";
 }
 
 void Sprite::draw(Graphics &graphics, int x, int y)

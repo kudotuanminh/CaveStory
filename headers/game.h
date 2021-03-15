@@ -3,14 +3,8 @@
 
 #include <global.h>
 #include <graphics.h>
-#include <sprite.h>
+#include <animatedSprite.h>
 #include <input.h>
-
-class Graphics;
-
-/*	Game class
- *	Holds information for main game loop
- */
 
 class Game
 {
@@ -19,7 +13,7 @@ private:
 	void draw(Graphics &graphics);
 	void update(float elapsedTime);
 
-	Sprite _player;
+	AnimatedSprite _player;
 
 public:
 	Game();

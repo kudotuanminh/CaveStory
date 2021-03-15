@@ -3,10 +3,6 @@
 
 #include <global.h>
 
-/*	Input class
- *	Keep tracks of keyboard states
- */
-
 class Input
 {
 private:

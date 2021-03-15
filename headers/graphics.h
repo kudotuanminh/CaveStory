@@ -6,10 +6,6 @@
 struct SDL_Window;
 struct SDL_Renderer;
 
-/*	Graphics class
- *	Dealing graphics for the game
- */
-
 class Graphics
 {
 private:
