@@ -8,6 +8,15 @@ Graphics::Graphics()
 {
 	SDL_CreateWindowAndRenderer(global::SCREEN_WIDTH, global::SCREEN_HEIGHT, 0, &this->_window, &this->_renderer);
 	SDL_SetWindowTitle(this->_window, "ntm's Cave Story");
+
+	// this->_window = SDL_CreateWindow(
+	// 	"ntm's Cave Story",
+	// 	SDL_WINDOWPOS_UNDEFINED,
+	// 	SDL_WINDOWPOS_UNDEFINED,
+	// 	global::SCREEN_WIDTH,
+	// 	global::SCREEN_HEIGHT,
+	// 	SDL_WINDOW_SHOWN);
+	// this->_renderer = SDL_CreateRenderer(this->_window, -1, SDL_RENDERER_PRESENTVSYNC);
 }
 Graphics::~Graphics()
 {

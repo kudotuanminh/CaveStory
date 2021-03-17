@@ -7,9 +7,9 @@
 class Sprite
 {
 private:
+protected:
 	float _x, _y;
 
-protected:
 	SDL_Rect _sourceRect;
 	SDL_Texture *_spriteSheet;
 
