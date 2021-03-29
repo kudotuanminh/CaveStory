@@ -20,7 +20,10 @@ public:
 	~Graphics();
 
 	SDL_Surface *loadImage(const std::string &filePath);
-	void blitSurface(SDL_Texture *texture, SDL_Rect *sourceRectangle, SDL_Rect *destinationRectangle);
+	void blitSurface(
+		SDL_Texture *texture,
+		SDL_Rect *sourceRectangle,
+		SDL_Rect *destinationRectangle);
 	void flip();
 	void clear();
 	SDL_Renderer *getRenderer() const;

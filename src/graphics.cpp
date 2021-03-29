@@ -6,21 +6,27 @@
 
 Graphics::Graphics()
 {
-	SDL_CreateWindowAndRenderer(global::SCREEN_WIDTH, global::SCREEN_HEIGHT, 0, &this->_window, &this->_renderer);
-	SDL_SetWindowTitle(this->_window, "ntm's Cave Story");
-
-	// this->_window = SDL_CreateWindow(
-	// 	"ntm's Cave Story",
-	// 	SDL_WINDOWPOS_UNDEFINED,
-	// 	SDL_WINDOWPOS_UNDEFINED,
+	// SDL_CreateWindowAndRenderer(
 	// 	global::SCREEN_WIDTH,
 	// 	global::SCREEN_HEIGHT,
-	// 	SDL_WINDOW_SHOWN);
-	// this->_renderer = SDL_CreateRenderer(this->_window, -1, SDL_RENDERER_PRESENTVSYNC);
+	// 	0,
+	// 	&this->_window,
+	// 	&this->_renderer);
+	// SDL_SetWindowTitle(this->_window, "ntm's Cave Story");
+
+	this->_window = SDL_CreateWindow(
+		"ntm's Cave Story",
+		SDL_WINDOWPOS_UNDEFINED,
+		SDL_WINDOWPOS_UNDEFINED,
+		global::SCREEN_WIDTH,
+		global::SCREEN_HEIGHT,
+		SDL_WINDOW_SHOWN);
+	this->_renderer = SDL_CreateRenderer(this->_window, -1, SDL_RENDERER_PRESENTVSYNC);
 }
 Graphics::~Graphics()
 {
 	SDL_DestroyWindow(this->_window);
+	SDL_DestroyRenderer(this->_renderer);
 }
 
 //	Loads an imgae into the _spriteSheets map if not loaded before, then return the image from the map
@@ -32,9 +38,16 @@ SDL_Surface *Graphics::loadImage(const std::string &filePath)
 }
 
 //	Draws a texture to a certain part of the screen
-void Graphics::blitSurface(SDL_Texture *texture, SDL_Rect *sourceRectangle, SDL_Rect *destinationRectangle)
+void Graphics::blitSurface(
+	SDL_Texture *texture,
+	SDL_Rect *sourceRectangle,
+	SDL_Rect *destinationRectangle)
 {
-	SDL_RenderCopy(this->_renderer, texture, sourceRectangle, destinationRectangle);
+	SDL_RenderCopy(
+		this->_renderer,
+		texture,
+		sourceRectangle,
+		destinationRectangle);
 }
 
 //	Renders everything to the screen

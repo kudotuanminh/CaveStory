@@ -26,7 +26,7 @@ struct Vector2
 	int x, y;
 	Vector2() : x(0), y(0) {}
 	Vector2(int _x, int _y) : x(_x), y(_y) {}
-	Vector2 zero()
+	static Vector2 zero()
 	{
 		return Vector2(0, 0);
 	}

@@ -5,24 +5,30 @@
  */
 
 AnimatedSprite::AnimatedSprite() {}
-AnimatedSprite::AnimatedSprite(Graphics &graphics,
-							   const std::string &filePath,
-							   int sourceX, int sourceY,
-							   int width, int height,
-							   float posX, float posY,
-							   float timeToUpdate) : Sprite(graphics,
-															filePath,
-															sourceX, sourceY,
-															width, height,
-															posX, posY),
-													 _frameIndex(0),
-													 _timeToUpdate(timeToUpdate),
-													 _visible(true),
-													 _currentAnimationOnce(false),
-													 _currentAnimation("") {}
+AnimatedSprite::AnimatedSprite(
+	Graphics &graphics,
+	const std::string &filePath,
+	int sourceX, int sourceY,
+	int width, int height,
+	float posX, float posY,
+	float timeToUpdate) : Sprite(graphics,
+								 filePath,
+								 sourceX, sourceY,
+								 width, height,
+								 posX, posY),
+						  _frameIndex(0),
+						  _timeToUpdate(timeToUpdate),
+						  _visible(true),
+						  _currentAnimationOnce(false),
+						  _currentAnimation("") {}
 
 //	Adds an animation to the map of animations for the sprite
-void AnimatedSprite::addAnimation(int frames, int x, int y, std::string name, int width, int height, Vector2 offset)
+void AnimatedSprite::addAnimation(
+	int frames,
+	int x, int y,
+	std::string name,
+	int width, int height,
+	Vector2 offset)
 {
 	std::vector<SDL_Rect> rectangles;
 	for (int i = 0; i < frames; i++)
@@ -98,7 +104,10 @@ void AnimatedSprite::draw(Graphics &graphics, int x, int y)
 		destinationRectangle.h = this->_sourceRect.h * global::SPRITE_SCALE;
 
 		SDL_Rect sourceRect = this->_animations[this->_currentAnimation][this->_frameIndex];
-		graphics.blitSurface(this->_spriteSheet, &sourceRect, &destinationRectangle);
+		graphics.blitSurface(
+			this->_spriteSheet,
+			&sourceRect,
+			&destinationRectangle);
 	}
 }
 

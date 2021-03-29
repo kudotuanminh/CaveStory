@@ -2,9 +2,9 @@
 #define GAME_H
 
 #include <global.h>
-#include <graphics.h>
 #include <player.h>
 #include <input.h>
+#include <level.h>
 
 class Game
 {
@@ -14,6 +14,8 @@ private:
 	void update(float elapsedTime);
 
 	Player _player;
+
+	Level _level;
 
 public:
 	Game();
