@@ -11,9 +11,7 @@ Tile::Tile(
 						_position(Vector2(position.x * global::SPRITE_SCALE,
 										  position.y * global::SPRITE_SCALE)) {}
 
-void Tile::update(int elapsedTime)
-{
-}
+void Tile::update(int elapsedTime) {}
 
 void Tile::draw(Graphics &graphics)
 {
@@ -26,8 +24,8 @@ void Tile::draw(Graphics &graphics)
 	SDL_Rect destRect = {
 		this->_position.x,
 		this->_position.y,
-		static_cast<int>(this->_size.x * global::SPRITE_SCALE),
-		static_cast<int>(this->_size.y * global::SPRITE_SCALE)};
+		global::SPRITE_SCALE * this->_size.x,
+		global::SPRITE_SCALE * this->_size.y};
 
 	graphics.blitSurface(
 		this->_tileset,

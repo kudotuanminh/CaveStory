@@ -59,10 +59,7 @@ void AnimatedSprite::playAnimation(std::string animation, bool once)
 }
 
 //	Changes the visibility of the animated sprite
-void AnimatedSprite::setVisible(bool visible)
-{
-	this->_visible = visible;
-}
+void AnimatedSprite::setVisible(bool visible) { this->_visible = visible; }
 
 //	Stops the current animation
 void AnimatedSprite::stopAnimation()

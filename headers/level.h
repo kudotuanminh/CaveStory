@@ -2,8 +2,8 @@
 #define LEVEL_H
 
 #include <global.h>
-#include <graphics.h>
 #include <tile.h>
+#include <rectangle.h>
 
 #include <pugixml.hpp>
 
@@ -36,6 +36,7 @@ private:
 
 	std::vector<Tile> _tileList;
 	std::vector<Tileset> _tilesets;
+	std::vector<Rectangle> _collisionRects;
 
 	void loadMap(std::string mapName, Graphics &graphics);
 
@@ -49,6 +50,10 @@ public:
 
 	void update(int elapsedTime);
 	void draw(Graphics &graphics);
+
+	std::vector<Rectangle> checkTileCollisions(const Rectangle &other);
+
+	const Vector2 getPlayerSpawnPoint() const;
 };
 
 #endif

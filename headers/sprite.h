@@ -3,6 +3,7 @@
 
 #include <global.h>
 #include <graphics.h>
+#include <rectangle.h>
 
 class Sprite
 {
@@ -12,6 +13,8 @@ protected:
 
 	SDL_Rect _sourceRect;
 	SDL_Texture *_spriteSheet;
+
+	Rectangle _boundingBox;
 
 public:
 	Sprite();
@@ -26,6 +29,9 @@ public:
 	virtual void update();
 
 	void draw(Graphics &graphic, int x, int y);
+
+	const Rectangle getBoundingBox() const;
+	const sides::Side getCollisionSide(Rectangle &other) const;
 };
 
 #endif

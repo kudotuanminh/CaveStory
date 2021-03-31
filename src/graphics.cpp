@@ -6,14 +6,6 @@
 
 Graphics::Graphics()
 {
-	// SDL_CreateWindowAndRenderer(
-	// 	global::SCREEN_WIDTH,
-	// 	global::SCREEN_HEIGHT,
-	// 	0,
-	// 	&this->_window,
-	// 	&this->_renderer);
-	// SDL_SetWindowTitle(this->_window, "ntm's Cave Story");
-
 	this->_window = SDL_CreateWindow(
 		"ntm's Cave Story",
 		SDL_WINDOWPOS_UNDEFINED,
@@ -51,19 +43,8 @@ void Graphics::blitSurface(
 }
 
 //	Renders everything to the screen
-void Graphics::flip()
-{
-	SDL_RenderPresent(this->_renderer);
-}
-
+void Graphics::flip() { SDL_RenderPresent(this->_renderer); }
 //	Clears the screen
-void Graphics::clear()
-{
-	SDL_RenderClear(this->_renderer);
-}
-
+void Graphics::clear() { SDL_RenderClear(this->_renderer); }
 //	Returns the renderer
-SDL_Renderer *Graphics::getRenderer() const
-{
-	return this->_renderer;
-}
+SDL_Renderer *Graphics::getRenderer() const { return this->_renderer; }

@@ -10,7 +10,33 @@ namespace global
 	const int SCREEN_WIDTH = 640;
 	const int SCREEN_HEIGHT = 480;
 
-	const float SPRITE_SCALE = 2.0f;
+	const int SPRITE_SCALE = 2;
+}
+
+namespace sides
+{
+	enum Side
+	{
+		TOP,
+		BOTTOM,
+		LEFT,
+		RIGHT,
+		NONE
+	};
+
+	const inline Side getOppositeSide(Side side)
+	{
+		if (side == TOP)
+			return BOTTOM;
+		else if (side == BOTTOM)
+			return TOP;
+		else if (side == LEFT)
+			return RIGHT;
+		else if (side == RIGHT)
+			return LEFT;
+		else
+			return NONE;
+	}
 }
 
 enum Direction
