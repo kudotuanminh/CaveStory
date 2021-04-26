@@ -1,12 +1,8 @@
 #include <player.h>
 
-namespace player_constants
-{
-	const float WALK_SPEED = 0.2f;
-
-	const float GRAVITY = 0.002f;
-	const float GRAVITY_CAP = 0.8f;
-}
+/*	Player class
+ *	Render graphics and controls player's character
+ */
 
 Player::Player(){};
 Player::Player(Graphics &graphics, Vector2 spawnPoint)
@@ -65,6 +61,16 @@ void Player::stopMoving()
 	this->playAnimation(this->_facing == RIGHT ? "IdleRight" : "IdleLeft");
 }
 
+//	Starts jumping
+void Player::jump()
+{
+	if (this->_grounded)
+	{
+		this->_dy = -player_constants::JUMP_SPEED;
+		this->_grounded = false;
+	}
+}
+
 //	Handles collisions with all tiles the player is colliding with
 void Player::handleTileCollisions(std::vector<Rectangle> &others)
 {
@@ -76,8 +82,13 @@ void Player::handleTileCollisions(std::vector<Rectangle> &others)
 			switch (collisionSide)
 			{
 			case sides::TOP:
-				this->_y = others[i].getBottom() + 1;
 				this->_dy = 0;
+				this->_y = others[i].getBottom() + 1;
+				if (this->_grounded)
+				{
+					this->_dx = 0;
+					this->_x -= this->_facing == RIGHT ? 1.0f : -1.0f;
+				}
 				break;
 			case sides::BOTTOM:
 				this->_y = others[i].getTop() - this->_boundingBox.getHeight() - 1;
@@ -91,6 +102,27 @@ void Player::handleTileCollisions(std::vector<Rectangle> &others)
 				this->_x = others[i].getLeft() - this->_boundingBox.getWidth() - 1;
 				break;
 			}
+	}
+}
+
+//	Handles collisions with all slopes the player is colliding with
+void Player::handleSlopeCollisions(std::vector<Slope> &others)
+{
+	for (int i = 0; i < others.size(); i++)
+	{
+		//	Calculate where on the slope the player's bottom center is touching and use 'y = mx + b' to figure out the y position to place him at
+		//	First calculate 'b' (slope intercept) using one of the points (b = y - mx)
+		int b = (others[i].getP1().y - (others[i].getSlope() * fabs(others[i].getP1().x)));
+		//	afterward get player's center X
+		int centerX = this->_boundingBox.getCenterX();
+		//	then find Y
+		int newY = (others[i].getSlope() * centerX) + b - 8; //	8 is temporary fix
+		//	Reposition the player to the correct Y
+		if (this->_grounded)
+		{
+			this->_y = newY - this->_boundingBox.getHeight();
+			this->_grounded = true;
+		}
 	}
 }
 

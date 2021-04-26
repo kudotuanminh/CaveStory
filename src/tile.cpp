@@ -1,5 +1,9 @@
 #include <tile.h>
 
+/*	Tile class
+ *	Handles rendering tiles from tilesets to renderer
+ */
+
 Tile::Tile() {}
 Tile::Tile(
 	SDL_Texture *tileset,
@@ -8,8 +12,8 @@ Tile::Tile(
 	Vector2 position) : _tileset(tileset),
 						_size(size),
 						_tilesetPosition(tilesetPosition),
-						_position(Vector2(position.x * global::SPRITE_SCALE,
-										  position.y * global::SPRITE_SCALE)) {}
+						_position(Vector2(global::SPRITE_SCALE * position.x,
+										  global::SPRITE_SCALE * position.y)) {}
 
 void Tile::update(int elapsedTime) {}
 

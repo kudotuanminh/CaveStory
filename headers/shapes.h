@@ -1,5 +1,5 @@
-#ifndef RECTANGLE_H
-#define RECTANGLE_H
+#ifndef SHAPES_H
+#define SHAPES_H
 
 #include <global.h>
 
@@ -28,6 +28,23 @@ public:
 	const bool collidesWith(const Rectangle &other) const;
 
 	bool isValidRectangle() const;
+};
+
+class Slope
+{
+private:
+	Vector2 _p1, _p2;
+	float _slope;
+
+public:
+	Slope();
+	Slope(Vector2 p1, Vector2 p2);
+
+	const float getSlope() const;
+	const Vector2 getP1() const;
+	const Vector2 getP2() const;
+
+	const bool collidesWith(const Rectangle &other) const;
 };
 
 #endif

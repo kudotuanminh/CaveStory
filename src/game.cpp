@@ -42,12 +42,14 @@ void Game::gameLoop()
 			else if (event.type == SDL_QUIT)
 				return;
 		}
-		if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true)
+		if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE))
 			return;
-		else if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true)
+		else if (input.isKeyHeld(SDL_SCANCODE_LEFT))
 			this->_player.moveLeft();
-		else if (input.isKeyHeld(SDL_SCANCODE_RIGHT) == true)
+		else if (input.isKeyHeld(SDL_SCANCODE_RIGHT))
 			this->_player.moveRight();
+		else if (input.isKeyHeld(SDL_SCANCODE_Z))
+			this->_player.jump();
 		if (!input.isKeyHeld(SDL_SCANCODE_LEFT) && !input.isKeyHeld(SDL_SCANCODE_RIGHT))
 			this->_player.stopMoving();
 
@@ -79,4 +81,9 @@ void Game::update(float elapsedTime)
 	std::vector<Rectangle> others = this->_level.checkTileCollisions(this->_player.getBoundingBox());
 	if (others.size() > 0)
 		this->_player.handleTileCollisions(others);
+
+	//	Check slopes
+	std::vector<Slope> otherSlopes = this->_level.checkSlopeCollisions(this->_player.getBoundingBox());
+	if (otherSlopes.size() > 0)
+		this->_player.handleSlopeCollisions(otherSlopes);
 }
