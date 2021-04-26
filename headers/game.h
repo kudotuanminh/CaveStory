@@ -3,7 +3,6 @@
 
 #include <global.h>
 #include <player.h>
-#include <input.h>
 #include <level.h>
 
 class Game

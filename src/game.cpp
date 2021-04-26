@@ -1,21 +1,21 @@
 #include <game.h>
 
-/*	Game class
- *	Holds all information for main game loop
- */
-
 namespace
 {
 	const int FPS = 50;
 	const int MAX_FRAME_TIME = 5 * 1000 / FPS;
 }
 
-Game::~Game() {}
+/*	Game class
+ *	Holds all information for main game loop
+ */
+
 Game::Game()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	this->gameLoop();
 }
+Game::~Game() {}
 
 void Game::gameLoop()
 {
@@ -69,7 +69,7 @@ void Game::draw(Graphics &graphics)
 	this->_level.draw(graphics);
 	this->_player.draw(graphics);
 
-	graphics.flip();
+	graphics.render();
 }
 
 void Game::update(float elapsedTime)

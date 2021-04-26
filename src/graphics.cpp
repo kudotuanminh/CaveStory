@@ -21,7 +21,8 @@ Graphics::~Graphics()
 	SDL_DestroyRenderer(this->_renderer);
 }
 
-//	Loads an imgae into the _spriteSheets map if not loaded before, then return the image from the map
+SDL_Renderer *Graphics::getRenderer() const { return this->_renderer; }
+
 SDL_Surface *Graphics::loadImage(const std::string &filePath)
 {
 	if (this->_spriteSheets.count(filePath) == 0)
@@ -29,7 +30,6 @@ SDL_Surface *Graphics::loadImage(const std::string &filePath)
 	return this->_spriteSheets[filePath];
 }
 
-//	Draws a texture to a certain part of the screen
 void Graphics::blitSurface(
 	SDL_Texture *texture,
 	SDL_Rect *sourceRectangle,
@@ -41,10 +41,3 @@ void Graphics::blitSurface(
 		sourceRectangle,
 		destinationRectangle);
 }
-
-//	Renders everything to the screen
-void Graphics::flip() { SDL_RenderPresent(this->_renderer); }
-//	Clears the screen
-void Graphics::clear() { SDL_RenderClear(this->_renderer); }
-//	Returns the renderer
-SDL_Renderer *Graphics::getRenderer() const { return this->_renderer; }

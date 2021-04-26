@@ -5,6 +5,7 @@
  */
 
 Rectangle::Rectangle() {}
+Rectangle::~Rectangle() {}
 Rectangle::Rectangle(int x, int y, int width, int height)
 	: _x(x),
 	  _y(y),
@@ -36,7 +37,6 @@ const int Rectangle::getSide(const sides::Side side) const
 		return sides::NONE;
 }
 
-//	Checks if 2 Rectangles are colliding
 const bool Rectangle::collidesWith(const Rectangle &other) const
 {
 	return (this->getRight() >= other.getLeft() &&

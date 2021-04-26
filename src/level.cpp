@@ -50,6 +50,29 @@ void Level::loadMap(std::string mapName, Graphics &graphics)
 			graphics.getRenderer(),
 			graphics.loadImage(ss.str()));
 		this->_tilesets.push_back(Tileset(tex, firstgid));
+
+		//	Get animations for that tileset
+		for (pugi::xml_node pTileA = pTileset.child("tile");
+			 pTileA;
+			 pTileA = pTileA.next_sibling("tile"))
+		{
+			AnimatedTileInfo ati;
+			ati.StartTileID = pTileA.attribute("id").as_int() + firstgid;
+			ati.TilesetsFirstGid = firstgid;
+
+			for (pugi::xml_node pAnimation = pTileA.child("animation");
+				 pAnimation;
+				 pAnimation = pTileA.next_sibling("animation"))
+				for (pugi::xml_node pFrame = pAnimation.child("frame");
+					 pFrame;
+					 pFrame = pFrame.next_sibling("frame"))
+				{
+					ati.TileIDs.push_back(pFrame.attribute("tileid").as_int());
+					ati.Duration = pFrame.attribute("duration").as_int();
+				}
+
+			this->_animatedTileInfos.push_back(ati);
+		}
 	}
 
 	//	Loading the layers
@@ -86,13 +109,14 @@ void Level::loadMap(std::string mapName, Graphics &graphics)
 					//	Get the tileset for this specific gid
 					int gid = pTile.attribute("gid").as_int();
 					Tileset tls;
+					int closest = 0;
 					for (int i = 0; i < this->_tilesets.size(); i++)
 						if (this->_tilesets[i].FirstGid <= gid)
-						{
-							//	This is the tileset we want
-							tls = this->_tilesets[i];
-							break;
-						}
+							if (this->_tilesets[i].FirstGid > closest)
+							{
+								closest = this->_tilesets[i].FirstGid;
+								tls = this->_tilesets[i];
+							}
 					if (tls.FirstGid == -1)
 					{
 						//	No tileset was found for this gid
@@ -111,18 +135,7 @@ void Level::loadMap(std::string mapName, Graphics &graphics)
 						yy = tileHeight * (tileCounter / width);
 					Vector2 finalTilePosition = Vector2(xx, yy);
 
-					//	Get the position of the tile in the tileset
-					int tilesetWidth,
-						tilesetHeight;
-					SDL_QueryTexture(
-						tls.Texture,
-						NULL,
-						NULL,
-						&tilesetWidth,
-						&tilesetHeight);
-					int tsxx = tileWidth * (gid % (tilesetWidth / tileWidth) - 1),
-						tsyy = tileHeight * (gid / (tilesetWidth / tileWidth));
-					Vector2 finalTilesetPosition = Vector2(tsxx, tsyy);
+					Vector2 finalTilesetPosition = this->getTilesetPosition(tls, gid, tileWidth, tileHeight);
 
 					//	Build the actual tile and add it to the level's tile list
 					Tile tile(
@@ -233,9 +246,23 @@ void Level::loadMap(std::string mapName, Graphics &graphics)
 	}
 }
 
-void Level::update(int elapsedTime) {}
+Vector2 Level::getTilesetPosition(Tileset tls, int gid, int tileWidth, int tileHeight)
+{
+	int tilesetWidth,
+		tilesetHeight;
+	SDL_QueryTexture(
+		tls.Texture,
+		NULL,
+		NULL,
+		&tilesetWidth,
+		&tilesetHeight);
+	int tsxx = tileWidth * (gid % (tilesetWidth / tileWidth) - 1),
+		tsyy = tileHeight * ((gid - tls.FirstGid) / (tilesetWidth / tileWidth));
+	return Vector2(tsxx, tsyy);
+}
 
-//	Draws the background
+const Vector2 Level::getPlayerSpawnPoint() const { return this->_spawnPoint; }
+
 void Level::draw(Graphics &graphics)
 {
 	for (int i = 0; i < this->_tileList.size(); i++)
@@ -259,5 +286,3 @@ std::vector<Slope> Level::checkSlopeCollisions(const Rectangle &other)
 			others.push_back(this->_slopes[i]);
 	return others;
 }
-
-const Vector2 Level::getPlayerSpawnPoint() const { return this->_spawnPoint; }
