@@ -18,6 +18,7 @@ protected:
 
 public:
 	Sprite();
+	~Sprite();
 	Sprite(
 		Graphics &graphics,
 		const std::string &filePath,
@@ -25,7 +26,6 @@ public:
 		int width, int height,
 		float posX, float posY);
 
-	virtual ~Sprite();
 	virtual void update();
 
 	void draw(Graphics &graphic, int x, int y);
@@ -64,6 +64,7 @@ protected:
 
 public:
 	AnimatedSprite();
+	~AnimatedSprite();
 	AnimatedSprite(
 		Graphics &graphics,
 		const std::string &filePath,
@@ -72,9 +73,10 @@ public:
 		float posX, float posY,
 		float timeToUpdate);
 
-	void playAnimation(std::string animation, bool once = false);
 	void update(int elapsedTime);
 	void draw(Graphics &graphics, int x, int y);
+
+	void playAnimation(std::string animation, bool once = false);
 };
 
 #endif

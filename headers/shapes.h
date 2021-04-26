@@ -10,6 +10,7 @@ private:
 
 public:
 	Rectangle();
+	~Rectangle();
 	Rectangle(int x, int y, int width, int height);
 
 	const int getCenterX() const;
@@ -24,7 +25,6 @@ public:
 	const int getHeight() const;
 
 	const int getSide(const sides::Side side) const;
-
 	const bool collidesWith(const Rectangle &other) const;
 
 	bool isValidRectangle() const;

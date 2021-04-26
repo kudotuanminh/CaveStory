@@ -22,7 +22,11 @@ private:
 
 public:
 	Player();
+	~Player();
 	Player(Graphics &graphics, Vector2 spawnPoint);
+
+	const float getX() const;
+	const float getY() const;
 
 	void draw(Graphics &graphics);
 	void update(float elapsedTime);
@@ -32,14 +36,11 @@ public:
 	void stopMoving();
 	void jump();
 
-	virtual void animationDone(std::string currentAnimation);
 	virtual void setupAnimations();
+	virtual void animationDone(std::string currentAnimation);
 
 	void handleTileCollisions(std::vector<Rectangle> &others);
 	void handleSlopeCollisions(std::vector<Slope> &others);
-
-	const float getX() const;
-	const float getY() const;
 };
 
 #endif

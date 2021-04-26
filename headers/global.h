@@ -47,6 +47,43 @@ enum Direction
 	DOWN
 };
 
+/*	Input class
+ *	Keep tracks of keyboard states
+ */
+class Input
+{
+private:
+	std::map<SDL_Scancode, bool> _heldKeys;
+	std::map<SDL_Scancode, bool> _pressedKeys;
+	std::map<SDL_Scancode, bool> _releasedKeys;
+
+public:
+	//	Reset keys that are no longer relevant
+	void beginNewFrame()
+	{
+		this->_pressedKeys.clear();
+		this->_releasedKeys.clear();
+	}
+
+	//	Key pressed
+	void keyDownEvent(const SDL_Event &event)
+	{
+		this->_pressedKeys[event.key.keysym.scancode] = true;
+		this->_heldKeys[event.key.keysym.scancode] = true;
+	}
+
+	//	Key released
+	void keyUpEvent(const SDL_Event &event)
+	{
+		this->_releasedKeys[event.key.keysym.scancode] = true;
+		this->_heldKeys[event.key.keysym.scancode] = false;
+	}
+
+	bool wasKeyPressed(SDL_Scancode key) { return this->_pressedKeys[key]; }
+	bool wasKeyReleased(SDL_Scancode key) { return this->_releasedKeys[key]; }
+	bool isKeyHeld(SDL_Scancode key) { return this->_heldKeys[key]; }
+};
+
 struct Vector2
 {
 	int x, y;

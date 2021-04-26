@@ -12,10 +12,7 @@ struct Tileset
 	SDL_Texture *Texture;
 	int FirstGid;
 
-	Tileset()
-	{
-		this->FirstGid = -1;
-	}
+	Tileset() { this->FirstGid = -1; }
 	Tileset(SDL_Texture *Texture, int FirstGid)
 	{
 		this->Texture = Texture;
@@ -39,23 +36,28 @@ private:
 	std::vector<Rectangle> _collisionRects;
 	std::vector<Slope> _slopes;
 
+	std::vector<AnimatedTile> _aniamtedTileList;
+	std::vector<AnimatedTileInfo> _animatedTileInfos;
+
 	void loadMap(std::string mapName, Graphics &graphics);
+
+	Vector2 getTilesetPosition(Tileset tls, int gid, int tileWidth, int tileHeight);
 
 public:
 	Level();
+	~Level();
 	Level(
 		std::string mapName,
 		Vector2 spawnPoint,
 		Graphics &graphics);
-	~Level();
 
-	void update(int elapsedTime);
+	const Vector2 getPlayerSpawnPoint() const;
+
+	void update(int elapsedTime) {}
 	void draw(Graphics &graphics);
 
 	std::vector<Rectangle> checkTileCollisions(const Rectangle &other);
 	std::vector<Slope> checkSlopeCollisions(const Rectangle &other);
-
-	const Vector2 getPlayerSpawnPoint() const;
 };
 
 #endif

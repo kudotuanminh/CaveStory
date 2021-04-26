@@ -32,6 +32,15 @@ Sprite::Sprite(
 		global::SPRITE_SCALE * height);
 }
 
+void Sprite::update()
+{
+	this->_boundingBox = Rectangle(
+		this->_x,
+		this->_y,
+		global::SPRITE_SCALE * this->_sourceRect.w,
+		global::SPRITE_SCALE * this->_sourceRect.h);
+}
+
 void Sprite::draw(Graphics &graphics, int x, int y)
 {
 	SDL_Rect destinationRectangle = {
@@ -45,18 +54,8 @@ void Sprite::draw(Graphics &graphics, int x, int y)
 		&destinationRectangle);
 }
 
-void Sprite::update()
-{
-	this->_boundingBox = Rectangle(
-		this->_x,
-		this->_y,
-		global::SPRITE_SCALE * this->_sourceRect.w,
-		global::SPRITE_SCALE * this->_sourceRect.h);
-}
-
 const Rectangle Sprite::getBoundingBox() const { return this->_boundingBox; }
 
-//	Determine the side which the collision happens
 const sides::Side Sprite::getCollisionSide(Rectangle &other) const
 {
 	int amountRight = this->getBoundingBox().getRight() - other.getLeft(),
@@ -83,6 +82,7 @@ const sides::Side Sprite::getCollisionSide(Rectangle &other) const
  */
 
 AnimatedSprite::AnimatedSprite() {}
+AnimatedSprite::~AnimatedSprite() {}
 AnimatedSprite::AnimatedSprite(
 	Graphics &graphics,
 	const std::string &filePath,
@@ -100,7 +100,43 @@ AnimatedSprite::AnimatedSprite(
 						  _currentAnimationOnce(false),
 						  _currentAnimation("") {}
 
-//	Adds an animation to the map of animations for the sprite
+void AnimatedSprite::update(int elapsedTime)
+{
+	Sprite::update();
+
+	this->_timeElapsed += elapsedTime;
+	if (this->_timeElapsed > this->_timeToUpdate)
+	{
+		this->_timeElapsed -= this->_timeToUpdate;
+		if (this->_frameIndex < this->_animations[this->_currentAnimation].size() - 1)
+			this->_frameIndex++;
+		else
+		{
+			if (this->_currentAnimationOnce)
+				this->setVisible(false);
+			this->stopAnimation();
+		}
+	}
+}
+
+void AnimatedSprite::draw(Graphics &graphics, int x, int y)
+{
+	if (this->_visible)
+	{
+		SDL_Rect destinationRectangle;
+		destinationRectangle.x = x + this->_offsets[this->_currentAnimation].x;
+		destinationRectangle.y = y + this->_offsets[this->_currentAnimation].y;
+		destinationRectangle.w = global::SPRITE_SCALE * this->_sourceRect.w;
+		destinationRectangle.h = global::SPRITE_SCALE * this->_sourceRect.h;
+
+		SDL_Rect sourceRect = this->_animations[this->_currentAnimation][this->_frameIndex];
+		graphics.blitSurface(
+			this->_spriteSheet,
+			&sourceRect,
+			&destinationRectangle);
+	}
+}
+
 void AnimatedSprite::addAnimation(
 	int frames,
 	int x, int y,
@@ -120,14 +156,12 @@ void AnimatedSprite::addAnimation(
 									Vector2>(name, offset));
 }
 
-//	Resets all animations associated with this sprite
 void AnimatedSprite::resetAnimations()
 {
 	this->_animations.clear();
 	this->_offsets.clear();
 }
 
-//	Plays the animation provided if it's not already playing
 void AnimatedSprite::playAnimation(std::string animation, bool once)
 {
 	this->_currentAnimationOnce = once;
@@ -138,52 +172,10 @@ void AnimatedSprite::playAnimation(std::string animation, bool once)
 	}
 }
 
-//	Changes the visibility of the animated sprite
 void AnimatedSprite::setVisible(bool visible) { this->_visible = visible; }
 
-//	Stops the current animation
 void AnimatedSprite::stopAnimation()
 {
 	this->_frameIndex = 0;
 	this->animationDone(this->_currentAnimation);
-}
-
-//	Updates the animated sprite (w/ a timer)
-void AnimatedSprite::update(int elapsedTime)
-{
-	Sprite::update();
-
-	this->_timeElapsed += elapsedTime;
-	if (this->_timeElapsed > this->_timeToUpdate)
-	{
-		this->_timeElapsed -= this->_timeToUpdate;
-		if (this->_frameIndex < this->_animations[this->_currentAnimation].size() - 1)
-			this->_frameIndex++;
-		else
-		{
-			if (this->_currentAnimationOnce)
-				this->setVisible(false);
-			this->_frameIndex = 0;
-			this->animationDone(this->_currentAnimation);
-		}
-	}
-}
-
-//	Draws the sprite to the screen
-void AnimatedSprite::draw(Graphics &graphics, int x, int y)
-{
-	if (this->_visible)
-	{
-		SDL_Rect destinationRectangle;
-		destinationRectangle.x = x + this->_offsets[this->_currentAnimation].x;
-		destinationRectangle.y = y + this->_offsets[this->_currentAnimation].y;
-		destinationRectangle.w = global::SPRITE_SCALE * this->_sourceRect.w;
-		destinationRectangle.h = global::SPRITE_SCALE * this->_sourceRect.h;
-
-		SDL_Rect sourceRect = this->_animations[this->_currentAnimation][this->_frameIndex];
-		graphics.blitSurface(
-			this->_spriteSheet,
-			&sourceRect,
-			&destinationRectangle);
-	}
 }
