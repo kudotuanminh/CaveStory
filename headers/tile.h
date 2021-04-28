@@ -12,7 +12,6 @@ protected:
 
 public:
 	Tile();
-	~Tile();
 	Tile(
 		SDL_Texture *tileset,
 		Vector2 size,
@@ -35,7 +34,6 @@ protected:
 	bool _notDone = false;
 
 public:
-	AnimatedTile();
 	AnimatedTile(
 		std::vector<Vector2> tilesetPositions,
 		int duration,

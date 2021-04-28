@@ -5,7 +5,6 @@
  */
 
 Player::Player() {}
-Player::~Player() {}
 Player::Player(Graphics &graphics, Vector2 spawnPoint)
 	: AnimatedSprite(graphics,
 					 "content/sprites/MyChar.png",

@@ -10,7 +10,6 @@ private:
 
 public:
 	Rectangle();
-	~Rectangle();
 	Rectangle(int x, int y, int width, int height);
 
 	const int getCenterX() const;

@@ -12,7 +12,6 @@ private:
 	SDL_Window *_window;
 	SDL_Renderer *_renderer;
 
-	//	Stores sprite sheets
 	std::map<std::string, SDL_Surface *> _spriteSheets;
 
 public:
@@ -21,14 +20,14 @@ public:
 
 	SDL_Renderer *getRenderer() const;
 
+	void render();
+	void clear();
+
 	SDL_Surface *loadImage(const std::string &filePath);
 	void blitSurface(
 		SDL_Texture *texture,
 		SDL_Rect *sourceRectangle,
 		SDL_Rect *destinationRectangle);
-
-	void render() { SDL_RenderPresent(this->_renderer); }
-	void clear() { SDL_RenderClear(this->_renderer); }
 };
 
 #endif

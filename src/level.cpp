@@ -5,7 +5,6 @@
  */
 
 Level::Level() {}
-Level::~Level() {}
 Level::Level(
 	std::string mapName,
 	Vector2 spawnPoint,
@@ -67,7 +66,7 @@ void Level::loadMap(std::string mapName, Graphics &graphics)
 					 pFrame;
 					 pFrame = pFrame.next_sibling("frame"))
 				{
-					ati.TileIDs.push_back(pFrame.attribute("tileid").as_int());
+					ati.TileIDs.push_back(pFrame.attribute("tileid").as_int() + firstgid);
 					ati.Duration = pFrame.attribute("duration").as_int();
 				}
 
@@ -131,21 +130,47 @@ void Level::loadMap(std::string mapName, Graphics &graphics)
 					}
 
 					//	Get the position of the tile in the level
-					int xx = tileWidth * (tileCounter % width),
-						yy = tileHeight * (tileCounter / width);
+					int xx = 0, yy = 0;
+					xx = tileWidth * (tileCounter % width);
+					yy = tileHeight * (tileCounter / width);
 					Vector2 finalTilePosition = Vector2(xx, yy);
 
-					Vector2 finalTilesetPosition = this->getTilesetPosition(tls, gid, tileWidth, tileHeight);
-
 					//	Build the actual tile and add it to the level's tile list
-					Tile tile(
-						tls.Texture,
-						Vector2(tileWidth, tileHeight),
-						finalTilesetPosition,
-						finalTilePosition);
-					this->_tileList.push_back(tile);
-					tileCounter++;
+					bool isAnimatedTile = false;
+					AnimatedTileInfo currATI;
+					for (int i = 0; i < this->_animatedTileInfos.size(); i++)
+						if (this->_animatedTileInfos[i].StartTileID == gid)
+						{
+							currATI = this->_animatedTileInfos[i];
+							isAnimatedTile = true;
+							break;
+						}
 
+					if (isAnimatedTile)
+					{
+						std::vector<Vector2> tilesetPositions;
+						for (int i = 0; i < currATI.TileIDs.size(); i++)
+							tilesetPositions.push_back(this->getTilesetPosition(tls, currATI.TileIDs[i], tileWidth, tileHeight));
+						AnimatedTile tile(
+							tilesetPositions,
+							currATI.Duration,
+							tls.Texture,
+							Vector2(tileWidth, tileHeight),
+							finalTilePosition);
+						this->_animatedTileList.push_back(tile);
+					}
+					else
+					{
+						Vector2 finalTilesetPosition = this->getTilesetPosition(tls, gid, tileWidth, tileHeight);
+						Tile tile(
+							tls.Texture,
+							Vector2(tileWidth, tileHeight),
+							finalTilesetPosition,
+							finalTilePosition);
+						this->_tileList.push_back(tile);
+					}
+
+					tileCounter++;
 					pTile = pTile.next_sibling("tile");
 				}
 			}
@@ -248,25 +273,33 @@ void Level::loadMap(std::string mapName, Graphics &graphics)
 
 Vector2 Level::getTilesetPosition(Tileset tls, int gid, int tileWidth, int tileHeight)
 {
-	int tilesetWidth,
-		tilesetHeight;
+	int tilesetWidth, tilesetHeight,
+		tsxx = 0, tsyy = 0;
 	SDL_QueryTexture(
 		tls.Texture,
 		NULL,
 		NULL,
 		&tilesetWidth,
 		&tilesetHeight);
-	int tsxx = tileWidth * (gid % (tilesetWidth / tileWidth) - 1),
-		tsyy = tileHeight * ((gid - tls.FirstGid) / (tilesetWidth / tileWidth));
+	tsxx = tileWidth * ((gid - 1) % (tilesetWidth / tileWidth));
+	tsyy = tileHeight * ((gid - tls.FirstGid) / (tilesetWidth / tileWidth));
 	return Vector2(tsxx, tsyy);
 }
 
 const Vector2 Level::getPlayerSpawnPoint() const { return this->_spawnPoint; }
 
+void Level::update(int elapsedTime)
+{
+	for (int i = 0; i < this->_animatedTileList.size(); i++)
+		this->_animatedTileList[i].update(elapsedTime);
+}
+
 void Level::draw(Graphics &graphics)
 {
 	for (int i = 0; i < this->_tileList.size(); i++)
 		this->_tileList[i].draw(graphics);
+	for (int i = 0; i < this->_animatedTileList.size(); i++)
+		this->_animatedTileList[i].draw(graphics);
 }
 
 std::vector<Rectangle> Level::checkTileCollisions(const Rectangle &other)

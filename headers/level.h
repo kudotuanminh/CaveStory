@@ -36,7 +36,7 @@ private:
 	std::vector<Rectangle> _collisionRects;
 	std::vector<Slope> _slopes;
 
-	std::vector<AnimatedTile> _aniamtedTileList;
+	std::vector<AnimatedTile> _animatedTileList;
 	std::vector<AnimatedTileInfo> _animatedTileInfos;
 
 	void loadMap(std::string mapName, Graphics &graphics);
@@ -45,7 +45,6 @@ private:
 
 public:
 	Level();
-	~Level();
 	Level(
 		std::string mapName,
 		Vector2 spawnPoint,
@@ -53,7 +52,7 @@ public:
 
 	const Vector2 getPlayerSpawnPoint() const;
 
-	void update(int elapsedTime) {}
+	void update(int elapsedTime);
 	void draw(Graphics &graphics);
 
 	std::vector<Rectangle> checkTileCollisions(const Rectangle &other);

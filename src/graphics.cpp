@@ -23,6 +23,9 @@ Graphics::~Graphics()
 
 SDL_Renderer *Graphics::getRenderer() const { return this->_renderer; }
 
+void Graphics::render() { SDL_RenderPresent(this->_renderer); }
+void Graphics::clear() { SDL_RenderClear(this->_renderer); }
+
 SDL_Surface *Graphics::loadImage(const std::string &filePath)
 {
 	if (this->_spriteSheets.count(filePath) == 0)

@@ -5,7 +5,6 @@
  */
 
 Tile::Tile() {}
-Tile::~Tile() {}
 Tile::Tile(
 	SDL_Texture *tileset,
 	Vector2 size,
@@ -42,13 +41,15 @@ void Tile::draw(Graphics &graphics)
  *	Holds logic for animating tiles
  */
 
-AnimatedTile::AnimatedTile() {}
 AnimatedTile::AnimatedTile(
 	std::vector<Vector2> tilesetPositions,
 	int duration,
 	SDL_Texture *tileset,
 	Vector2 size,
-	Vector2 position) : Tile(tileset, size, tilesetPositions[0], position),
+	Vector2 position) : Tile(tileset,
+							 size,
+							 tilesetPositions[0],
+							 position),
 						_tilesetPositions(tilesetPositions),
 						_duration(duration),
 						_tileToDraw(0) {}
@@ -71,17 +72,20 @@ void AnimatedTile::update(int elapsedTime)
 
 void AnimatedTile::draw(Graphics &graphics)
 {
-	SDL_Rect destRect = {
-		this->_position.x,
-		this->_position.y,
-		global::SPRITE_SCALE * this->_size.x,
-		global::SPRITE_SCALE * this->_size.y};
-
 	SDL_Rect sourceRect = {
 		this->_tilesetPositions[this->_tileToDraw].x,
 		this->_tilesetPositions[this->_tileToDraw].y,
 		this->_size.x,
 		this->_size.y};
 
-	graphics.blitSurface(this->_tileset, &sourceRect, &destRect);
+	SDL_Rect destRect = {
+		this->_position.x,
+		this->_position.y,
+		global::SPRITE_SCALE * this->_size.x,
+		global::SPRITE_SCALE * this->_size.y};
+
+	graphics.blitSurface(
+		this->_tileset,
+		&sourceRect,
+		&destRect);
 }

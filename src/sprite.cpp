@@ -5,7 +5,6 @@
  */
 
 Sprite::Sprite() {}
-Sprite::~Sprite() {}
 Sprite::Sprite(
 	Graphics &graphics,
 	const std::string &filePath,

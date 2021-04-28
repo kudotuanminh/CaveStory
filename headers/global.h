@@ -50,6 +50,7 @@ enum Direction
 /*	Input class
  *	Keep tracks of keyboard states
  */
+
 class Input
 {
 private:
@@ -91,6 +92,10 @@ struct Vector2
 	Vector2(int _x, int _y) : x(_x), y(_y) {}
 	static Vector2 zero() { return Vector2(0, 0); }
 };
+
+/*	Utils class
+ *	Utilities
+ */
 
 class Utils
 {

@@ -22,7 +22,6 @@ private:
 
 public:
 	Player();
-	~Player();
 	Player(Graphics &graphics, Vector2 spawnPoint);
 
 	const float getX() const;
