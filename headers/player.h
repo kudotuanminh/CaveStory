@@ -18,8 +18,13 @@ class Player : public AnimatedSprite
 private:
 	float _dx, _dy;
 	Direction _facing;
-	bool _grounded, _lookingUp, _lookingDown;
-	int _maxHealth, _currentHealth;
+	bool
+		_grounded,
+		_lookingUp,
+		_lookingDown;
+	int
+		_maxHealth,
+		_currentHealth;
 
 public:
 	Player();

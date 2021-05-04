@@ -10,7 +10,22 @@ class HUD
 private:
 	Player _player;
 
-	Sprite _healthBarSprite, _healthNumber1;
+	//	HP
+	Sprite
+		_healthBarSprite,
+		_healthNumber1,
+		_currentHealthBar;
+
+	// EXP
+	Sprite
+		_lvWord,
+		_lvNumber,
+		_expBar;
+
+	//	Weapon
+	Sprite
+		_slash,
+		_dashes;
 
 public:
 	HUD();

@@ -81,6 +81,8 @@ void Sprite::draw(Graphics &graphics, int x, int y)
 
 void Sprite::setSourceRectX(int value) { this->_sourceRect.x = value; }
 void Sprite::setSourceRectY(int value) { this->_sourceRect.y = value; }
+void Sprite::setSourceRectW(int value) { this->_sourceRect.w = value; }
+void Sprite::setSourceRectH(int value) { this->_sourceRect.h = value; }
 
 /*	AnimatedSprite class
  *	Holds logic for animating sprites

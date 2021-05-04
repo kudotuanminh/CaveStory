@@ -8,15 +8,15 @@
 class Game
 {
 private:
-	void gameLoop();
-	void draw(Graphics &graphics);
-	void update(float elapsedTime);
-
 	Player _player;
 
 	Level _level;
 
 	HUD _hud;
+
+	void gameLoop();
+	void draw(Graphics &graphics);
+	void update(float elapsedTime);
 
 public:
 	Game();

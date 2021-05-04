@@ -27,7 +27,8 @@ class AnimatedTile : public Tile
 {
 private:
 	std::vector<Vector2> _tilesetPositions;
-	int _tileToDraw,
+	int
+		_tileToDraw,
 		_duration;
 
 protected:
