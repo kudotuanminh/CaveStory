@@ -30,29 +30,10 @@ Sprite::Sprite(
 		global::SPRITE_SCALE * width,
 		global::SPRITE_SCALE * height);
 }
+Sprite::~Sprite() {}
 
-void Sprite::update()
-{
-	this->_boundingBox = Rectangle(
-		this->_x,
-		this->_y,
-		global::SPRITE_SCALE * this->_sourceRect.w,
-		global::SPRITE_SCALE * this->_sourceRect.h);
-}
-
-void Sprite::draw(Graphics &graphics, int x, int y)
-{
-	SDL_Rect destinationRectangle = {
-		x,
-		y,
-		global::SPRITE_SCALE * this->_sourceRect.w,
-		global::SPRITE_SCALE * this->_sourceRect.h};
-	graphics.blitSurface(
-		this->_spriteSheet,
-		&this->_sourceRect,
-		&destinationRectangle);
-}
-
+const float Sprite::getX() const { return this->_x; }
+const float Sprite::getY() const { return this->_y; }
 const Rectangle Sprite::getBoundingBox() const { return this->_boundingBox; }
 
 const sides::Side Sprite::getCollisionSide(Rectangle &other) const
@@ -76,12 +57,37 @@ const sides::Side Sprite::getCollisionSide(Rectangle &other) const
 		return sides::NONE;
 }
 
+void Sprite::update()
+{
+	this->_boundingBox = Rectangle(
+		this->_x,
+		this->_y,
+		global::SPRITE_SCALE * this->_sourceRect.w,
+		global::SPRITE_SCALE * this->_sourceRect.h);
+}
+
+void Sprite::draw(Graphics &graphics, int x, int y)
+{
+	SDL_Rect destinationRectangle = {
+		x,
+		y,
+		global::SPRITE_SCALE * this->_sourceRect.w,
+		global::SPRITE_SCALE * this->_sourceRect.h};
+	graphics.blitSurface(
+		this->_spriteSheet,
+		&this->_sourceRect,
+		&destinationRectangle);
+}
+
+void Sprite::setSourceRectX(int value) { this->_sourceRect.x = value; }
+void Sprite::setSourceRectY(int value) { this->_sourceRect.y = value; }
+
 /*	AnimatedSprite class
  *	Holds logic for animating sprites
  */
 
 AnimatedSprite::AnimatedSprite() {}
-AnimatedSprite::~AnimatedSprite() {}
+
 AnimatedSprite::AnimatedSprite(
 	Graphics &graphics,
 	const std::string &filePath,
@@ -98,6 +104,7 @@ AnimatedSprite::AnimatedSprite(
 						  _visible(true),
 						  _currentAnimationOnce(false),
 						  _currentAnimation("") {}
+AnimatedSprite::~AnimatedSprite() {}
 
 void AnimatedSprite::update(int elapsedTime)
 {

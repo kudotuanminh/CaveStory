@@ -49,6 +49,7 @@ public:
 		std::string mapName,
 		Vector2 spawnPoint,
 		Graphics &graphics);
+	~Level();
 
 	const Vector2 getPlayerSpawnPoint() const;
 

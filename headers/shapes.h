@@ -11,6 +11,7 @@ private:
 public:
 	Rectangle();
 	Rectangle(int x, int y, int width, int height);
+	~Rectangle();
 
 	const int getCenterX() const;
 	const int getCenterY() const;
@@ -38,6 +39,7 @@ private:
 public:
 	Slope();
 	Slope(Vector2 p1, Vector2 p2);
+	~Slope();
 
 	const float getSlope() const;
 	const Vector2 getP1() const;

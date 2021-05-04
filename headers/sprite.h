@@ -24,13 +24,18 @@ public:
 		int sourceX, int sourceY,
 		int width, int height,
 		float posX, float posY);
+	~Sprite();
 
-	virtual void update();
-
-	void draw(Graphics &graphic, int x, int y);
-
+	const float getX() const;
+	const float getY() const;
 	const Rectangle getBoundingBox() const;
 	const sides::Side getCollisionSide(Rectangle &other) const;
+
+	virtual void update();
+	void draw(Graphics &graphic, int x, int y);
+
+	void setSourceRectX(int value);
+	void setSourceRectY(int value);
 };
 
 class AnimatedSprite : public Sprite
@@ -63,7 +68,6 @@ protected:
 
 public:
 	AnimatedSprite();
-	~AnimatedSprite();
 	AnimatedSprite(
 		Graphics &graphics,
 		const std::string &filePath,
@@ -71,6 +75,7 @@ public:
 		int width, int height,
 		float posX, float posY,
 		float timeToUpdate);
+	~AnimatedSprite();
 
 	void update(int elapsedTime);
 	void draw(Graphics &graphics, int x, int y);

@@ -10,6 +10,7 @@ Rectangle::Rectangle(int x, int y, int width, int height)
 	  _y(y),
 	  _width(width),
 	  _height(height){};
+Rectangle::~Rectangle() {}
 
 const int Rectangle::getCenterX() const { return this->_x + this->_width / 2; }
 const int Rectangle::getCenterY() const { return this->_y + this->_height / 2; }
@@ -63,6 +64,7 @@ Slope::Slope(Vector2 p1, Vector2 p2) : _p1(p1),
 	if (this->_p2.x - this->_p1.x != 0)
 		this->_slope = (fabs(this->_p2.y) - fabs(this->_p1.y)) / (fabs(this->_p2.x) - fabs(this->_p1.x));
 }
+Slope::~Slope() {}
 
 const float Slope::getSlope() const { return this->_slope; }
 const Vector2 Slope::getP1() const { return this->_p1; }

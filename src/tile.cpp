@@ -14,6 +14,7 @@ Tile::Tile(
 						_tilesetPosition(tilesetPosition),
 						_position(Vector2(global::SPRITE_SCALE * position.x,
 										  global::SPRITE_SCALE * position.y)) {}
+Tile::~Tile() {}
 
 void Tile::update(int elapsedTime) {}
 
@@ -53,6 +54,7 @@ AnimatedTile::AnimatedTile(
 						_tilesetPositions(tilesetPositions),
 						_duration(duration),
 						_tileToDraw(0) {}
+AnimatedTile::~AnimatedTile() {}
 
 void AnimatedTile::update(int elapsedTime)
 {

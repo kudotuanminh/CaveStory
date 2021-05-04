@@ -18,14 +18,21 @@ class Player : public AnimatedSprite
 private:
 	float _dx, _dy;
 	Direction _facing;
-	bool _grounded;
+	bool _grounded, _lookingUp, _lookingDown;
+	int _maxHealth, _currentHealth;
 
 public:
 	Player();
 	Player(Graphics &graphics, Vector2 spawnPoint);
+	~Player();
 
 	const float getX() const;
 	const float getY() const;
+	const int getMaxHealth() const;
+	const int getCurrentHealth() const;
+
+	virtual void setupAnimations();
+	virtual void animationDone(std::string currentAnimation);
 
 	void draw(Graphics &graphics);
 	void update(float elapsedTime);
@@ -33,10 +40,13 @@ public:
 	void moveLeft();
 	void moveRight();
 	void stopMoving();
-	void jump();
 
-	virtual void setupAnimations();
-	virtual void animationDone(std::string currentAnimation);
+	void lookUp();
+	void stopLookingUp();
+	void lookDown();
+	void stopLookingDown();
+
+	void jump();
 
 	void handleTileCollisions(std::vector<Rectangle> &others);
 	void handleSlopeCollisions(std::vector<Slope> &others);

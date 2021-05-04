@@ -14,6 +14,7 @@ Level::Level(
 {
 	this->loadMap(mapName, graphics);
 }
+Level::~Level() {}
 
 void Level::loadMap(std::string mapName, Graphics &graphics)
 {

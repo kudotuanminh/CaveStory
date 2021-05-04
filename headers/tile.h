@@ -17,6 +17,7 @@ public:
 		Vector2 size,
 		Vector2 tilesetPosition,
 		Vector2 position);
+	~Tile();
 
 	void update(int elapsedTime);
 	void draw(Graphics &graphics);
@@ -40,6 +41,7 @@ public:
 		SDL_Texture *tileset,
 		Vector2 size,
 		Vector2 position);
+	~AnimatedTile();
 
 	void update(int elapsedTime);
 	void draw(Graphics &graphics);
