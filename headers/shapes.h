@@ -27,6 +27,7 @@ public:
 	const int getHeight() const;
 
 	const int getSide(const sides::Side side) const;
+
 	const bool collidesWith(const Rectangle &other) const;
 
 	bool isValidRectangle() const;
@@ -44,6 +45,7 @@ public:
 	~Slope();
 
 	const float getSlope() const;
+
 	const Vector2 getP1() const;
 	const Vector2 getP2() const;
 
@@ -61,6 +63,7 @@ public:
 	~Door();
 
 	const Rectangle getRectangle() const;
+
 	const std::string getDestination() const;
 };
 

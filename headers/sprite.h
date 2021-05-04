@@ -28,16 +28,18 @@ public:
 
 	const float getX() const;
 	const float getY() const;
-	const Rectangle getBoundingBox() const;
-	const sides::Side getCollisionSide(Rectangle &other) const;
 
-	virtual void update();
-	void draw(Graphics &graphic, int x, int y);
+	const Rectangle getBoundingBox() const;
+
+	const sides::Side getCollisionSide(Rectangle &other) const;
 
 	void setSourceRectX(int value);
 	void setSourceRectY(int value);
 	void setSourceRectW(int value);
 	void setSourceRectH(int value);
+
+	virtual void update();
+	void draw(Graphics &graphic, int x, int y);
 };
 
 class AnimatedSprite : public Sprite
@@ -79,10 +81,10 @@ public:
 		float timeToUpdate);
 	~AnimatedSprite();
 
+	void playAnimation(std::string animation, bool once = false);
+
 	void update(int elapsedTime);
 	void draw(Graphics &graphics, int x, int y);
-
-	void playAnimation(std::string animation, bool once = false);
 };
 
 #endif

@@ -74,22 +74,11 @@ void Game::gameLoop()
 	}
 }
 
-void Game::draw(Graphics &graphics)
-{
-	graphics.clear();
-
-	this->_level.draw(graphics);
-	this->_player.draw(graphics);
-	this->_hud.draw(graphics);
-
-	graphics.render();
-}
-
 void Game::update(float elapsedTime)
 {
 	this->_player.update(elapsedTime);
-	this->_level.update(elapsedTime);
-	this->_hud.update(elapsedTime);
+	this->_level.update(elapsedTime, this->_player);
+	this->_hud.update(elapsedTime, this->_player);
 
 	//	Check collisions
 	std::vector<Rectangle> others = this->_level.checkTileCollisions(this->_player.getBoundingBox());
@@ -104,5 +93,21 @@ void Game::update(float elapsedTime)
 	//	Check doors
 	std::vector<Door> otherDoors = this->_level.checkDoorCollisions(this->_player.getBoundingBox());
 	if (otherDoors.size() > 0)
-		this->_player.handleDoorCollision(otherDoors, this->_level, this->_graphics);
+		this->_player.handleDoorCollisions(otherDoors, this->_level, this->_graphics);
+
+	//	Check enemies
+	std::vector<Enemy *> otherEnemies = this->_level.checkEnemyCollisions(this->_player.getBoundingBox());
+	if (otherEnemies.size() > 0)
+		this->_player.handleEnemyCollisions(otherEnemies);
+}
+
+void Game::draw(Graphics &graphics)
+{
+	graphics.clear();
+
+	this->_level.draw(graphics);
+	this->_player.draw(graphics);
+	this->_hud.draw(graphics);
+
+	graphics.render();
 }

@@ -3,7 +3,7 @@
 
 #include <global.h>
 #include <sprite.h>
-#include <player.h>
+#include <character.h>
 
 class HUD
 {
@@ -32,7 +32,7 @@ public:
 	HUD(Graphics &graphics, Player &player);
 	~HUD();
 
-	void update(int elapsedTime);
+	void update(int elapsedTime, Player &player);
 	void draw(Graphics &graphics);
 };
 

@@ -5,11 +5,10 @@
  */
 
 Rectangle::Rectangle() {}
-Rectangle::Rectangle(int x, int y, int width, int height)
-	: _x(x),
-	  _y(y),
-	  _width(width),
-	  _height(height){};
+Rectangle::Rectangle(int x, int y, int width, int height) : _x(x),
+															_y(y),
+															_width(width),
+															_height(height){};
 Rectangle::~Rectangle() {}
 
 const Rectangle Rectangle::getRect() const { return *this; }
@@ -69,6 +68,7 @@ Slope::Slope(Vector2 p1, Vector2 p2) : _p1(p1),
 Slope::~Slope() {}
 
 const float Slope::getSlope() const { return this->_slope; }
+
 const Vector2 Slope::getP1() const { return this->_p1; }
 const Vector2 Slope::getP2() const { return this->_p2; }
 
@@ -101,15 +101,15 @@ const bool Slope::collidesWith(const Rectangle &other) const
  */
 
 Door::Door() {}
-Door::Door(Rectangle r, std::string destination)
-	: Rectangle(global::SPRITE_SCALE * r.getLeft(),
-				global::SPRITE_SCALE * r.getTop(),
-				global::SPRITE_SCALE * r.getWidth(),
-				global::SPRITE_SCALE * r.getHeight()),
-	  _destination(destination)
+Door::Door(Rectangle r, std::string destination) : Rectangle(global::SPRITE_SCALE * r.getLeft(),
+															 global::SPRITE_SCALE * r.getTop(),
+															 global::SPRITE_SCALE * r.getWidth(),
+															 global::SPRITE_SCALE * r.getHeight()),
+												   _destination(destination)
 {
 }
 Door::~Door() {}
 
 const Rectangle Door::getRectangle() const { return this->getRect(); }
+
 const std::string Door::getDestination() const { return this->_destination; }

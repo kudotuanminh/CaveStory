@@ -26,9 +26,14 @@ Libraries required for compilation are:
 
 ## Compile and Run
 
-To start the game, just hit F5 (or any key-binding according to your _VSCode_'s global setting) to start debugging. Remember to place all the listed dependencies (with a leading _'.'_ letter, follows by **the exact name**) to the _root directory_ of the project. Required Dlls are already included in the "_build_" folder.
+To start the game, just hit F5 (or any key-binding according to your _VSCode_'s global setting) to start debugging. Remember to place all the listed dependencies (with a leading '.' letter, follows by **the exact name**) to the _root directory_ of the project. Required Dlls are already included in the "_build_" folder.
+
+## Some highlights of what this code is capable of
+
+- Since the maps weren't hard-coded to the source and made by a map editor, you can easily scale up (with any extra tilesets, spritesheets linked to that map) without modifying the source code itself.
+-
 
 # Credit
 
-- Limeoats's [Course](https://www.youtube.com/playlist?list=PLNOBk_id22bw6LXhrGfhVwqQIa-M2MsLa "Link to original YouTube playlist")
+- Limeoats's [Tutorial](https://www.youtube.com/playlist?list=PLNOBk_id22bw6LXhrGfhVwqQIa-M2MsLa "Link to original YouTube playlist")
 - Assets by [cavestory.org](http://cavestory.org/)

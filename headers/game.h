@@ -14,8 +14,9 @@ private:
 	Graphics _graphics;
 
 	void gameLoop();
-	void draw(Graphics &graphics);
+
 	void update(float elapsedTime);
+	void draw(Graphics &graphics);
 
 public:
 	Game();

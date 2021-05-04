@@ -4,8 +4,12 @@
 #include <global.h>
 #include <tile.h>
 #include <shapes.h>
+#include <character.h>
 
 #include <pugixml.hpp>
+
+class Enemy;
+class Player;
 
 struct Tileset
 {
@@ -41,6 +45,8 @@ private:
 
 	std::vector<Door> _doorList;
 
+	std::vector<Enemy *> _enemies;
+
 	void loadMap(std::string mapName, Graphics &graphics);
 
 	Vector2 getTilesetPosition(Tileset tls, int gid, int tileWidth, int tileHeight);
@@ -53,12 +59,13 @@ public:
 
 	const Vector2 getPlayerSpawnPoint() const;
 
-	void update(int elapsedTime);
-	void draw(Graphics &graphics);
-
 	std::vector<Rectangle> checkTileCollisions(const Rectangle &other);
 	std::vector<Slope> checkSlopeCollisions(const Rectangle &other);
 	std::vector<Door> checkDoorCollisions(const Rectangle &other);
+	std::vector<Enemy *> checkEnemyCollisions(const Rectangle &other);
+
+	void update(int elapsedTime, Player &player);
+	void draw(Graphics &graphics);
 };
 
 #endif

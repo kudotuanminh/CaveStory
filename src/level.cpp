@@ -294,6 +294,27 @@ void Level::loadMap(std::string mapName, Graphics &graphics)
 					}
 			}
 
+		//	Loading 'enemies' data
+		else if (ss.str() == "enemies")
+		{
+			for (pugi::xml_node pObject = pObjectGroup.child("object");
+				 pObject;
+				 pObject = pObject.next_sibling("object"))
+			{
+				float x = pObject.attribute("x").as_float(),
+					  y = pObject.attribute("y").as_float();
+
+				std::string name = pObject.attribute("name").as_string();
+				std::stringstream ss;
+				ss << name;
+				if (ss.str() == "bat")
+				{
+					this->_enemies.push_back(new Bat(graphics, Vector2(global::SPRITE_SCALE * std::floor(x),
+																	   global::SPRITE_SCALE * std::floor(y))));
+				}
+			}
+		}
+
 		//	other objectgroup can be added here
 	}
 }
@@ -314,20 +335,6 @@ Vector2 Level::getTilesetPosition(Tileset tls, int gid, int tileWidth, int tileH
 }
 
 const Vector2 Level::getPlayerSpawnPoint() const { return this->_spawnPoint; }
-
-void Level::update(int elapsedTime)
-{
-	for (int i = 0; i < this->_animatedTileList.size(); i++)
-		this->_animatedTileList[i].update(elapsedTime);
-}
-
-void Level::draw(Graphics &graphics)
-{
-	for (int i = 0; i < this->_tileList.size(); i++)
-		this->_tileList[i].draw(graphics);
-	for (int i = 0; i < this->_animatedTileList.size(); i++)
-		this->_animatedTileList[i].draw(graphics);
-}
 
 std::vector<Rectangle> Level::checkTileCollisions(const Rectangle &other)
 {
@@ -354,4 +361,31 @@ std::vector<Door> Level::checkDoorCollisions(const Rectangle &other)
 		if (this->_doorList[i].collidesWith(other))
 			others.push_back(this->_doorList[i]);
 	return others;
+}
+
+std::vector<Enemy *> Level::checkEnemyCollisions(const Rectangle &other)
+{
+	std::vector<Enemy *> others;
+	for (int i = 0; i < this->_enemies.size(); i++)
+		if (this->_enemies[i]->getBoundingBox().collidesWith(other))
+			others.push_back(this->_enemies[i]);
+	return others;
+}
+
+void Level::update(int elapsedTime, Player &player)
+{
+	for (int i = 0; i < this->_animatedTileList.size(); i++)
+		this->_animatedTileList[i].update(elapsedTime);
+	for (int i = 0; i < this->_enemies.size(); i++)
+		this->_enemies[i]->update(elapsedTime, player);
+}
+
+void Level::draw(Graphics &graphics)
+{
+	for (int i = 0; i < this->_tileList.size(); i++)
+		this->_tileList[i].draw(graphics);
+	for (int i = 0; i < this->_animatedTileList.size(); i++)
+		this->_animatedTileList[i].draw(graphics);
+	for (int i = 0; i < this->_enemies.size(); i++)
+		this->_enemies[i]->draw(graphics);
 }
