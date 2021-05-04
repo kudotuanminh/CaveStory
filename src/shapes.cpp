@@ -12,6 +12,8 @@ Rectangle::Rectangle(int x, int y, int width, int height)
 	  _height(height){};
 Rectangle::~Rectangle() {}
 
+const Rectangle Rectangle::getRect() const { return *this; }
+
 const int Rectangle::getCenterX() const { return this->_x + this->_width / 2; }
 const int Rectangle::getCenterY() const { return this->_y + this->_height / 2; }
 
@@ -93,3 +95,21 @@ const bool Slope::collidesWith(const Rectangle &other) const
 			other.getTop() <= this->_p2.y &&
 			other.getBottom() >= this->_p1.y);
 }
+
+/*	Door class
+ *	Handles doors
+ */
+
+Door::Door() {}
+Door::Door(Rectangle r, std::string destination)
+	: Rectangle(global::SPRITE_SCALE * r.getLeft(),
+				global::SPRITE_SCALE * r.getTop(),
+				global::SPRITE_SCALE * r.getWidth(),
+				global::SPRITE_SCALE * r.getHeight()),
+	  _destination(destination)
+{
+}
+Door::~Door() {}
+
+const Rectangle Door::getRectangle() const { return this->getRect(); }
+const std::string Door::getDestination() const { return this->_destination; }

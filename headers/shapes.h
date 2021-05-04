@@ -13,6 +13,8 @@ public:
 	Rectangle(int x, int y, int width, int height);
 	~Rectangle();
 
+	const Rectangle getRect() const;
+
 	const int getCenterX() const;
 	const int getCenterY() const;
 
@@ -46,6 +48,20 @@ public:
 	const Vector2 getP2() const;
 
 	const bool collidesWith(const Rectangle &other) const;
+};
+
+class Door : public Rectangle
+{
+private:
+	std::string _destination;
+
+public:
+	Door();
+	Door(Rectangle r, std::string destination);
+	~Door();
+
+	const Rectangle getRectangle() const;
+	const std::string getDestination() const;
 };
 
 #endif

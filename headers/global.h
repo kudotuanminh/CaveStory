@@ -85,14 +85,6 @@ public:
 	bool isKeyHeld(SDL_Scancode key) { return this->_heldKeys[key]; }
 };
 
-struct Vector2
-{
-	int x, y;
-	Vector2() : x(0), y(0) {}
-	Vector2(int _x, int _y) : x(_x), y(_y) {}
-	static Vector2 zero() { return Vector2(0, 0); }
-};
-
 /*	Utils class
  *	Utilities
  */
@@ -119,6 +111,14 @@ public:
 															txt.size() - initialPos - 1)));
 		return strs.size();
 	}
+};
+
+struct Vector2
+{
+	int x, y;
+	Vector2() : x(0), y(0) {}
+	Vector2(int _x, int _y) : x(_x), y(_y) {}
+	static Vector2 zero() { return Vector2(0, 0); }
 };
 
 #endif

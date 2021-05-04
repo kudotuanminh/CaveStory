@@ -3,6 +3,7 @@
 
 #include <global.h>
 #include <sprite.h>
+#include <level.h>
 
 namespace player_constants
 {
@@ -55,6 +56,7 @@ public:
 
 	void handleTileCollisions(std::vector<Rectangle> &others);
 	void handleSlopeCollisions(std::vector<Slope> &others);
+	void handleDoorCollision(std::vector<Door> &others, Level &level, Graphics &graphics);
 };
 
 #endif

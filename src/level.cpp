@@ -7,9 +7,7 @@
 Level::Level() {}
 Level::Level(
 	std::string mapName,
-	Vector2 spawnPoint,
 	Graphics &graphics) : _mapName(mapName),
-						  _spawnPoint(spawnPoint),
 						  _size(Vector2(0, 0))
 {
 	this->loadMap(mapName, graphics);
@@ -189,7 +187,6 @@ void Level::loadMap(std::string mapName, Graphics &graphics)
 
 		//	Loading 'collisions' data
 		if (ss.str() == "collisions")
-		{
 			for (pugi::xml_node pObject = pObjectGroup.child("object");
 				 pObject;
 				 pObject = pObject.next_sibling("object"))
@@ -204,11 +201,9 @@ void Level::loadMap(std::string mapName, Graphics &graphics)
 							  global::SPRITE_SCALE * std::ceil(width),
 							  global::SPRITE_SCALE * std::ceil(height)));
 			}
-		}
 
 		// Loading 'slopes' data
 		else if (ss.str() == "slopes")
-		{
 			for (pugi::xml_node pObject = pObjectGroup.child("object");
 				 pObject;
 				 pObject = pObject.next_sibling("object"))
@@ -246,11 +241,9 @@ void Level::loadMap(std::string mapName, Graphics &graphics)
 						Vector2(x2, y2)));
 				}
 			}
-		}
 
 		//	Loading 'spawn points' data
 		else if (ss.str() == "spawn points")
-		{
 			for (pugi::xml_node pObject = pObjectGroup.child("object");
 				 pObject;
 				 pObject = pObject.next_sibling("object"))
@@ -267,7 +260,40 @@ void Level::loadMap(std::string mapName, Graphics &graphics)
 						global::SPRITE_SCALE * std::ceil(y));
 				}
 			}
-		}
+
+		//	Loading 'doors' data
+		else if (ss.str() == "doors")
+			for (pugi::xml_node pObject = pObjectGroup.child("object");
+				 pObject;
+				 pObject = pObject.next_sibling("object"))
+			{
+				float x = pObject.attribute("x").as_float(),
+					  y = pObject.attribute("y").as_float(),
+					  w = pObject.attribute("width").as_float(),
+					  h = pObject.attribute("height").as_float();
+				Rectangle rect = Rectangle(x, y, w, h);
+
+				for (pugi::xml_node pProperties = pObject.child("properties");
+					 pProperties;
+					 pProperties = pProperties.next_sibling("properties"))
+					for (pugi::xml_node pProperty = pProperties.child("property");
+						 pProperty;
+						 pProperty = pProperty.next_sibling("property"))
+					{
+						std::string name = pProperty.attribute("name").as_string();
+						std::stringstream ss;
+						ss << name;
+						if (ss.str() == "destination")
+						{
+							std::string value = pProperty.attribute("value").as_string();
+							std::stringstream ss2;
+							ss2 << value;
+							Door door = Door(rect, ss2.str());
+							this->_doorList.push_back(door);
+						}
+					}
+			}
+
 		//	other objectgroup can be added here
 	}
 }
@@ -318,5 +344,14 @@ std::vector<Slope> Level::checkSlopeCollisions(const Rectangle &other)
 	for (int i = 0; i < this->_slopes.size(); i++)
 		if (this->_slopes[i].collidesWith(other))
 			others.push_back(this->_slopes[i]);
+	return others;
+}
+
+std::vector<Door> Level::checkDoorCollisions(const Rectangle &other)
+{
+	std::vector<Door> others;
+	for (int i = 0; i < this->_doorList.size(); i++)
+		if (this->_doorList[i].collidesWith(other))
+			others.push_back(this->_doorList[i]);
 	return others;
 }
