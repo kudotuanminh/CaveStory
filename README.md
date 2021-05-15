@@ -4,6 +4,8 @@ This is a remake of Studio Pixel's Cave Story in C++ with SDL2 library, based on
 
 My project for INT2215 6 class - Advanced Programming, lectured by [@chauttm](https://github.com/chauttm "chauttm's GitHub") and [@ndinhtuan](https://github.com/ndinhtuan "ndinhtuan's GitHub").
 
+This branch is an archival of the game at the time of grading.
+
 # Dependencies
 
 ## Software
