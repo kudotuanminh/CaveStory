@@ -2,7 +2,7 @@
 
 This is a remake of Studio Pixel's Cave Story in C++ with SDL2 library, based on a guide by Limeoats.
 
-My project for INT2215 6 class - Advanced Programming, lectured by [@chauttm](https://github.com/chauttm "chauttm's GitHub").
+My project for INT2215 6 class - Advanced Programming, lectured by [@chauttm](https://github.com/chauttm "chauttm's GitHub") and [@ndinhtuan](https://github.com/ndinhtuan "ndinhtuan's GitHub").
 
 # Dependencies
 
