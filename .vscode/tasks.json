@@ -10,16 +10,19 @@
 				"src\\*.cpp",
 				"-o",
 				"build\\game.exe",
-				"-I${workspaceFolder}/.SDL2-2.0.14-x86_64-w64-mingw32/include/SDL2",
-				"-L${workspaceFolder}/.SDL2-2.0.14-x86_64-w64-mingw32/lib",
-				"-I${workspaceFolder}/.SDL2_image-2.0.5-x86_64-w64-mingw32/include/SDL2",
-				"-L${workspaceFolder}/.SDL2_image-2.0.5-x86_64-w64-mingw32/lib",
-				"-I${workspaceFolder}/.pugixml-1.11.4/src",
-				"-I${workspaceFolder}/headers",
+				"-I${workspaceFolder}\\.SDL2-2.0.14-x86_64-w64-mingw32\\include\\SDL2",
+				"-L${workspaceFolder}\\.SDL2-2.0.14-x86_64-w64-mingw32\\lib",
+				"-I${workspaceFolder}\\.SDL2_image-2.0.5-x86_64-w64-mingw32\\include\\SDL2",
+				"-L${workspaceFolder}\\.SDL2_image-2.0.5-x86_64-w64-mingw32\\lib",
+				"-I${workspaceFolder}\\.SDL2_mixer-2.0.4-x86_64-w64-mingw32\\include\\SDL2",
+				"-L${workspaceFolder}\\.SDL2_mixer-2.0.4-x86_64-w64-mingw32\\lib",
+				"-I${workspaceFolder}\\.pugixml-1.11.4\\src",
+				"-I${workspaceFolder}\\headers",
 				"-lmingw32",
 				"-lSDL2main",
 				"-lSDL2",
-				"-lSDL2_image"
+				"-lSDL2_image",
+				"-lSDL2_mixer"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"

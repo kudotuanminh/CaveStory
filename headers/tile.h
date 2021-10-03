@@ -4,57 +4,44 @@
 #include <global.h>
 #include <graphics.h>
 
-class Tile
-{
-protected:
-	SDL_Texture *_tileset;
-	Vector2 _size, _tilesetPosition, _position;
+class Tile {
+   protected:
+    SDL_Texture *_tileset;
+    Vector2 _size, _tilesetPosition, _position;
 
-public:
-	Tile();
-	Tile(
-		SDL_Texture *tileset,
-		Vector2 size,
-		Vector2 tilesetPosition,
-		Vector2 position);
-	~Tile();
+   public:
+    Tile();
+    Tile(SDL_Texture *tileset, Vector2 size, Vector2 tilesetPosition,
+         Vector2 position);
+    ~Tile();
 
-	void update(int elapsedTime);
-	void draw(Graphics &graphics);
+    void update(int elapsedTime);
+    void draw(Graphics &graphics);
 };
 
-class AnimatedTile : public Tile
-{
-private:
-	std::vector<Vector2> _tilesetPositions;
-	int
-		_tileToDraw,
-		_duration;
+class AnimatedTile : public Tile {
+   private:
+    std::vector<Vector2> _tilesetPositions;
+    int _tileToDraw, _duration;
 
-protected:
-	int _amountOfTime = 0;
-	bool _notDone = false;
+   protected:
+    int _amountOfTime = 0;
+    bool _notDone = false;
 
-public:
-	AnimatedTile(
-		std::vector<Vector2> tilesetPositions,
-		int duration,
-		SDL_Texture *tileset,
-		Vector2 size,
-		Vector2 position);
-	~AnimatedTile();
+   public:
+    AnimatedTile(std::vector<Vector2> tilesetPositions, int duration,
+                 SDL_Texture *tileset, Vector2 size, Vector2 position);
+    ~AnimatedTile();
 
-	void update(int elapsedTime);
-	void draw(Graphics &graphics);
+    void update(int elapsedTime);
+    void draw(Graphics &graphics);
 };
 
-struct AnimatedTileInfo
-{
-public:
-	int TilesetsFirstGid,
-		StartTileID;
-	std::vector<int> TileIDs;
-	int Duration;
+struct AnimatedTileInfo {
+   public:
+    int TilesetsFirstGid, StartTileID;
+    std::vector<int> TileIDs;
+    int Duration;
 };
 
 #endif
